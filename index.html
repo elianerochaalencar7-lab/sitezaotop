@@ -1,0 +1,224 @@
+<!doctype html>
+<html lang="pt-BR"><head><meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>Amigo Secreto da Família</title>
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,600;9..144,800&family=Figtree:wght@400;600&display=swap" rel="stylesheet">
+<style>
+:root{--bg:#f5efe3;--card:#fffdf8;--ink:#10281d;--mut:#5b6b60;--line:#e3d9c4;--pine:#0e3326;--red:#b3202f;--gold:#c9a24b;color-scheme:light;box-sizing:border-box;padding-top:env(safe-area-inset-top,0px);padding-bottom:env(safe-area-inset-bottom,0px)}
+@media(prefers-color-scheme:dark){:root:not([data-theme="light"]){--bg:#0b241b;--card:#123528;--ink:#f6efe0;--mut:#a9bdaf;--line:#24503e;color-scheme:dark}}
+:root[data-theme="dark"]{--bg:#0b241b;--card:#123528;--ink:#f6efe0;--mut:#a9bdaf;--line:#24503e;color-scheme:dark}
+html{scroll-padding-top:env(safe-area-inset-top,0px)}
+*{box-sizing:border-box}
+body{margin:0;background:var(--bg);color:var(--ink);font:16px/1.55 Figtree,system-ui,sans-serif}
+body::before{content:"";position:fixed;inset:0;pointer-events:none;opacity:.55;background-image:radial-gradient(2px 2px at 30px 40px,#c9a24bbb,transparent),radial-gradient(3px 3px at 130px 110px,#c9a24b88,transparent),radial-gradient(2px 2px at 80px 170px,#c9a24b99,transparent);background-size:200px 200px;animation:snow 24s linear infinite}
+@keyframes snow{to{background-position:0 400px}}
+h1,h2,h3,.name{font-family:Fraunces,Georgia,serif;margin:.2em 0}
+#app{position:relative;z-index:1;max-width:760px;margin:0 auto;padding:0 16px 96px}
+.top{padding:16px 0;font:600 18px Fraunces,Georgia,serif;color:var(--gold)}
+.hero{text-align:center;padding:34px 18px 26px;border-radius:28px;background:linear-gradient(160deg,#0e3326,#0a241b);color:#f6efe0;border:1px solid var(--gold);position:relative;overflow:hidden}
+.hero::after{content:"";position:absolute;left:0;top:0;width:100%;height:7px;background:repeating-linear-gradient(90deg,var(--red) 0 24px,var(--gold) 24px 32px)}
+.hero h1{font-size:clamp(34px,8vw,58px);font-weight:800;line-height:1.05}
+.lead{font-size:18px;opacity:.92}
+.cd,.facts{display:grid;grid-template-columns:repeat(4,1fr);gap:8px;margin:20px 0}
+.facts{grid-template-columns:repeat(auto-fit,minmax(150px,1fr))}
+.cd div,.facts div{background:#ffffff12;border:1px solid #c9a24b66;border-radius:16px;padding:12px 6px}
+.cd b,.facts b{display:block;font:700 26px Fraunces,Georgia,serif;color:var(--gold)}
+.facts b{font-size:19px}
+.cd span,.facts span{font-size:13px;opacity:.85}
+.btn{background:var(--red);color:#fff;border:0;border-radius:14px;padding:13px 20px;font:600 16px Figtree,sans-serif;cursor:pointer;text-decoration:none;display:inline-block;transition:transform .15s,filter .15s}
+.btn:hover{filter:brightness(1.1);transform:translateY(-1px)}
+.btn:disabled{opacity:.4;cursor:not-allowed}
+.btn.ghost{background:transparent;color:inherit;border:1.5px solid var(--gold)}
+.btn.gold{background:var(--gold);color:#241a02}
+.btn.big{width:100%;margin:10px 0;padding:16px;font-size:17px}
+.cta{display:flex;gap:10px;justify-content:center;flex-wrap:wrap}
+.card{background:var(--card);border:1px solid var(--line);border-radius:18px;padding:16px;margin:12px 0}
+.center{text-align:center}
+.item{display:flex;justify-content:space-between;align-items:center;gap:10px}
+.item small{display:block;color:var(--mut)}
+.row{display:flex;gap:8px;flex-wrap:wrap}
+label{display:block;font-size:14px;color:var(--mut);margin-top:8px}
+input,select{width:100%;padding:12px;margin:5px 0;border:1px solid var(--line);border-radius:12px;background:var(--bg);color:var(--ink);font:inherit}
+input:focus,select:focus,button:focus-visible,a:focus-visible{outline:2px solid var(--gold);outline-offset:2px}
+.ic{border:1px solid var(--line);background:var(--bg);color:var(--ink);border-radius:12px;width:42px;height:42px;cursor:pointer;font-size:17px;text-decoration:none;display:inline-grid;place-items:center}
+.tabs{display:flex;gap:6px;overflow-x:auto;margin:14px 0}
+.tabs button{flex:none;border:1px solid var(--line);background:var(--card);color:var(--ink);border-radius:999px;padding:9px 16px;font:600 14px Figtree,sans-serif;cursor:pointer}
+.tabs .on{background:var(--pine);color:var(--gold);border-color:var(--gold)}
+.stats{display:grid;grid-template-columns:repeat(4,1fr);gap:8px;margin-top:12px}
+.stats div{background:var(--card);border:1px solid var(--line);border-radius:14px;padding:10px 4px;text-align:center}
+.stats b{display:block;font:700 20px Fraunces,Georgia,serif;color:var(--red)}
+.stats span{font-size:12px;color:var(--mut)}
+.note{color:var(--mut);font-size:14px}.ok{color:#2f8f5b;font-weight:600}
+.bar{position:fixed;left:0;right:0;bottom:0;padding:12px 16px calc(12px + env(safe-area-inset-bottom,0px));background:var(--pine);display:flex;justify-content:center;gap:12px;align-items:center;color:#f6efe0;z-index:5}
+#toast{position:fixed;left:50%;bottom:90px;transform:translate(-50%,20px);background:#10281d;color:#fff;padding:10px 16px;border-radius:12px;opacity:0;transition:.25s;z-index:30;max-width:90vw;pointer-events:none}
+#toast.on{opacity:1;transform:translate(-50%,0)}
+.gift{font-size:84px;line-height:1}
+.shake{animation:shk .35s infinite}
+@keyframes shk{0%,100%{transform:rotate(-8deg)}50%{transform:rotate(8deg) scale(1.1)}}
+.name{font-size:clamp(34px,10vw,56px);color:var(--red);animation:pop .6s both}
+@keyframes pop{from{transform:scale(.4);opacity:0}}
+.slips{display:flex;justify-content:center;gap:8px;height:76px;margin:12px 0}
+.slips i{width:48px;height:64px;background:#fff;border:2px solid var(--gold);border-radius:6px;box-shadow:0 2px 6px #0003}
+.slips.go i{animation:slip .3s infinite alternate}.slips.go i:nth-child(2){animation-delay:.1s}.slips.go i:nth-child(3){animation-delay:.2s}
+@keyframes slip{to{transform:translateY(-18px) rotate(12deg)}}
+.cf{position:fixed;top:-14px;width:9px;height:14px;animation:fall var(--d) linear forwards;z-index:20;pointer-events:none}
+@keyframes fall{to{transform:translateY(105vh) rotate(720deg)}}
+@media(max-width:520px){.cd{gap:6px}.cd b{font-size:22px}}
+@media(prefers-reduced-motion:reduce){*{animation:none!important;transition:none!important}}
+</style></head>
+<body>
+<div id="app"></div><div id="fx"></div><div id="toast"></div>
+<script type="application/json" id="state">{"ev":{"name":"Amigo Secreto da Família","date":"2026-12-24","place":"","min":50,"max":100,"msg":"Que a magia do Natal reúna toda a família!","deadline":""},"people":[{"id":"ekwvo","name":"Julia","phone":"","obs":""},{"id":"ze2vc","name":"Gustavo","phone":"","obs":""},{"id":"m27ts","name":"Eliane","phone":"","obs":""}],"bans":[],"draw":{"salt":"/UEKTJJyaTa/PKGqiuusmQ==","enc":{"ekwvo":"Z/bY8N1b0E/+Znwb.D+kOOL7dEksK90asFgGVVZDbksPbLJkHIsrhh2DP4Xg=","ze2vc":"mGksLd2qp6ReEtV5.2P9bUk3Aj/nR8gteOvkcovBbEzbfiMCoMxN+kWDzbQ==","m27ts":"WG9vQN9DgaLr0VWR.Bdj9jvmOpoKZBjBd0Qcr4P3mmTVVsPxjUwc94IrN"}}}</script>
+<script>
+const $=s=>document.querySelector(s),S=JSON.parse($('#state').textContent);
+const esc=s=>String(s??'').replace(/[&<>"']/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c]));
+const money=n=>'R$ '+Number(n||0).toLocaleString('pt-BR');
+const fdate=d=>d?new Date(d+'T12:00').toLocaleDateString('pt-BR',{day:'numeric',month:'long',year:'numeric'}):'a definir';
+const uid=()=>Math.random().toString(36).slice(2,7);
+const rnd=n=>crypto.getRandomValues(new Uint32Array(1))[0]%n;
+let V='home',T='pessoas',dirty=false,isAdmin=false,pending=null,shuf=false,edit=null,codes={},arm='',who='';
+function toast(m){const t=$('#toast');t.textContent=m;t.className='on';clearTimeout(toast.t);toast.t=setTimeout(()=>t.className='',2800)}
+
+/* criptografia: cada resultado só abre com o código da própria pessoa */
+const te=new TextEncoder(),td=new TextDecoder();
+const b64=b=>btoa(String.fromCharCode(...new Uint8Array(b))),ub=s=>Uint8Array.from(atob(s),c=>c.charCodeAt(0));
+async function key(code,salt){const k=await crypto.subtle.importKey('raw',te.encode(code.trim().toUpperCase()),'PBKDF2',false,['deriveKey']);return crypto.subtle.deriveKey({name:'PBKDF2',salt:ub(salt),iterations:150000,hash:'SHA-256'},k,{name:'AES-GCM',length:256},false,['encrypt','decrypt'])}
+async function seal(code,salt,txt){const iv=crypto.getRandomValues(new Uint8Array(12));return b64(iv)+'.'+b64(await crypto.subtle.encrypt({name:'AES-GCM',iv},await key(code,salt),te.encode(txt)))}
+async function unseal(code,salt,s){const[i,c]=s.split('.');return td.decode(await crypto.subtle.decrypt({name:'AES-GCM',iv:ub(i)},await key(code,salt),ub(c)))}
+
+/* sorteio sem auto-sorteio, respeitando restrições */
+function sortear(){const P=S.people,n=P.length;
+ if(n<3){toast('Cadastre pelo menos 3 participantes.');return null}
+ const ban=new Set(S.bans.flatMap(([a,b])=>[a+b,b+a]));
+ for(let k=0;k<5000;k++){const o=P.map(p=>p.id);
+  for(let i=n-1;i>0;i--){const j=rnd(i+1);[o[i],o[j]]=[o[j],o[i]]}
+  if(P.every((p,i)=>p.id!==o[i]&&!ban.has(p.id+o[i])))return Object.fromEntries(P.map((p,i)=>[p.id,o[i]]))}
+ toast('Não foi possível sortear com essas restrições. Remova alguma regra e tente de novo.');return null}
+async function confirmar(){
+ const salt=b64(crypto.getRandomValues(new Uint8Array(16))),al='ABCDEFGHJKLMNPQRSTUVWXYZ23456789',enc={},cs={};
+ for(const p of S.people){cs[p.id]=Array.from(crypto.getRandomValues(new Uint8Array(6)),x=>al[x%32]).join('');
+  enc[p.id]=await seal(cs[p.id],salt,JSON.stringify({to:S.people.find(q=>q.id===pending[p.id]).name}))}
+ S.draw={salt,enc};codes={salt,cs};
+ try{localStorage.setItem('as-codes',JSON.stringify({salt,cs}))}catch{}
+ pending=null;dirty=true;T='share';render();toast('Sorteio confirmado. Envie os códigos e depois baixe o arquivo atualizado.')}
+
+/* publicar: o estado vai embutido no HTML da página */
+function src(){const c=document.documentElement.cloneNode(true);
+ ['#app','#fx','#toast'].forEach(s=>c.querySelector(s).innerHTML='');
+ c.querySelector('#state').textContent=JSON.stringify(S).replace(/</g,'\\u003c');
+ return '<!doctype html>\n'+c.outerHTML}
+function baixar(blob,nome){const a=document.createElement('a');a.href=URL.createObjectURL(blob);a.download=nome;document.body.append(a);a.click();a.remove();setTimeout(()=>URL.revokeObjectURL(a.href),4000)}
+function save(){baixar(new Blob([src()],{type:'text/html'}),'index.html');dirty=false;toast('Arquivo baixado. Envie-o para a hospedagem, substituindo o index.html.');render()}
+
+/* telas */
+function home(){const e=S.ev,n=S.people.length;
+ return `<section class="hero"><h1>${esc(e.name)}</h1><p class="lead">${esc(e.msg)}</p><div class="cd" id="cd"></div>
+ <div class="facts"><div><b>${n}</b><span>${n==1?'participante':'participantes'}</span></div><div><b>${money(e.min)} a ${money(e.max)}</b><span>valor do presente</span></div><div><b>${fdate(e.date)}</b><span>${esc(e.place||'local a definir')}</span></div></div>
+ ${e.deadline?`<p class="note" style="color:#f6efe0b0">Confirme sua presença até ${fdate(e.deadline)}.</p>`:''}
+ <div class="cta">${S.draw?'<button class="btn" data-a="go" data-v="reveal">🎁 Descobrir meu amigo secreto</button>':'<p class="lead">O sorteio ainda não foi realizado.</p>'}
+ ${isAdmin?'<button class="btn ghost" data-a="go" data-v="admin">🎄 Organizar o sorteio</button>':''}</div></section>
+ `}
+
+function admin(){const d=S.ev.date?Math.ceil((new Date(S.ev.date+'T00:00')-Date.now())/864e5):'-';
+ const tabs=[['pessoas','Participantes'],['regras','Restrições'],['sorteio','Sorteio'],['share','Compartilhar'],['evento','Evento']];
+ return `<button class="btn ghost" data-a="go" data-v="home">‹ Início</button>
+ <div class="stats"><div><b>${S.people.length}</b><span>pessoas</span></div><div><b>${S.bans.length}</b><span>restrições</span></div><div><b>${S.draw?'✔':'…'}</b><span>${S.draw?'confirmado':'pendente'}</span></div><div><b>${d}</b><span>dias</span></div></div>
+ <div class="tabs">${tabs.map(([k,l])=>`<button class="${T==k?'on':''}" data-a="tab" data-k="${k}">${l}</button>`).join('')}</div>`+({pessoas:tPessoas,regras:tRegras,sorteio:tSorteio,share:tShare,evento:tEvento})[T]()}
+
+function tPessoas(){const L=S.draw;
+ return `<div class="card"><h3>${edit?'Editar participante':'Novo participante'}</h3>
+ <input id="pn" placeholder="Nome completo" value="${esc(edit?.name)}"><input id="pt" placeholder="WhatsApp com DDD (opcional)" inputmode="tel" value="${esc(edit?.phone)}"><input id="po" placeholder="Observações (opcional)" value="${esc(edit?.obs)}">
+ <div class="row"><button class="btn" data-a="psave" ${L&&!edit?'disabled':''}>${edit?'Salvar':'Adicionar'}</button>${edit?'<button class="btn ghost" data-a="pcancel">Cancelar</button>':''}</div>
+ ${L?'<p class="note">Sorteio confirmado: para incluir ou excluir pessoas, cancele-o na aba Sorteio.</p>':''}</div>
+ ${S.people.map(p=>`<div class="card item"><div><b>${esc(p.name)}</b><small>${esc([p.phone,p.obs].filter(Boolean).join(', '))}</small></div><div class="row"><button class="ic" data-a="pedit" data-id="${p.id}" aria-label="Editar">✎</button><button class="ic" data-a="pdel" data-id="${p.id}" aria-label="Excluir" ${L?'disabled':''}>🗑</button></div></div>`).join('')||'<p class="note">Nenhum participante ainda. Adicione o primeiro acima.</p>'}
+ <button class="btn ghost" data-a="export">Exportar lista (CSV)</button>`}
+
+function tRegras(){const o=S.people.map(p=>`<option value="${p.id}">${esc(p.name)}</option>`).join(''),nm=id=>esc(S.people.find(p=>p.id===id)?.name);
+ return `<div class="card"><h3>Quem não pode tirar quem</h3><p class="note">Vale nos dois sentidos. Use para casais ou para quem já se tirou em anos anteriores.</p>
+ <select id="ra">${o}</select><select id="rb">${o}</select><button class="btn" data-a="rsave" ${S.draw?'disabled':''}>Adicionar regra</button></div>
+ ${S.bans.map(([a,b],i)=>`<div class="card item"><span>${nm(a)} e ${nm(b)}</span><button class="ic" data-a="rdel" data-i="${i}" aria-label="Remover" ${S.draw?'disabled':''}>✕</button></div>`).join('')}`}
+
+function tSorteio(){
+ if(S.draw)return `<div class="card"><h3>Sorteio confirmado ✔</h3><p>Os resultados estão criptografados: nem você os vê aqui. Abra a aba Compartilhar para enviar os códigos.</p><button class="btn" data-a="cancel">Cancelar sorteio e refazer</button></div>`;
+ return `<div class="card center"><h3>Sortear</h3><p class="note">${S.people.length} participantes e ${S.bans.length} restrições.</p>
+ <div class="slips ${shuf?'go':''}"><i></i><i></i><i></i></div>
+ ${pending?'<p class="ok">Sorteio pronto. Os pares ficam ocultos até você confirmar.</p>':''}
+ <div class="row" style="justify-content:center"><button class="btn" data-a="draw" ${shuf?'disabled':''}>${pending?'Sortear de novo':'Realizar sorteio'}</button>${pending?'<button class="btn gold" data-a="confirm">Confirmar e salvar</button>':''}</div></div>`}
+
+function msgP(p,link,code){const e=S.ev;return `Olá, ${p.name.split(' ')[0]}! 🎁 O sorteio do ${e.name} saiu. Abra ${link} e digite o código ${code} para descobrir quem você tirou. Valor do presente: ${money(e.min)} a ${money(e.max)}. Confraternização: ${fdate(e.date)}${e.place?' em '+e.place:''}. É segredo, hein! 🤫`}
+function tShare(){const base=location.href.split('#')[0],inv=`🎄 Vem aí o ${S.ev.name}! Quando o sorteio estiver pronto, você receberá seu código individual. Endereço: ${base}`;
+ const h=`<div class="card"><h3>Convite geral</h3><input readonly value="${esc(base)}"><div class="row"><button class="btn" data-a="copy" data-t="${esc(inv)}">Copiar convite</button><a class="btn ghost" target="_blank" rel="noopener" href="https://wa.me/?text=${encodeURIComponent(inv)}">WhatsApp</a></div></div>`;
+ if(!S.draw)return h+'<p class="note">Confirme o sorteio para gerar os links individuais.</p>';
+ if(!codes.cs)return h+'<p class="note">Os códigos ficam salvos só no navegador onde o sorteio foi confirmado. Se não aparecem aqui, cancele e refaça o sorteio neste aparelho.</p>';
+ return h+S.people.map(p=>{const t=msgP(p,base+'#p-'+p.id,codes.cs[p.id]);let d=p.phone.replace(/\D/g,'');if(d&&d.length<=11)d='55'+d;
+  return `<div class="card item"><div><b>${esc(p.name)}</b><small>código ${codes.cs[p.id]}</small></div><div class="row"><button class="ic" data-a="copy" data-t="${esc(t)}" aria-label="Copiar mensagem">⧉</button><a class="ic" target="_blank" rel="noopener" aria-label="Enviar por WhatsApp" href="https://wa.me/${d}?text=${encodeURIComponent(t)}">💬</a></div></div>`}).join('')}
+
+function tEvento(){const e=S.ev,f=(id,l,v,t='text')=>`<label>${l}<input id="${id}" type="${t}" value="${esc(v)}"></label>`;
+ return `<div class="card"><h3>Configurações do evento</h3>${f('en','Nome do evento',e.name)}${f('ed','Data da confraternização',e.date,'date')}${f('el','Local',e.place)}${f('ev','Valor mínimo (R$)',e.min,'number')}${f('ex','Valor máximo (R$)',e.max,'number')}${f('eq','Prazo para confirmação',e.deadline,'date')}${f('em','Mensagem especial',e.msg)}<button class="btn" style="margin-top:12px" data-a="esave">Salvar configurações</button></div>`}
+
+function reveal(){const hp=location.hash.startsWith('#p-')?location.hash.slice(3):'';
+ if(!who&&S.people.some(p=>p.id===hp))who=hp;
+ if(!S.draw)return `<section class="card center"><h2>Ainda não tem sorteio</h2><p>O organizador ainda não confirmou o sorteio.</p><button class="btn" data-a="go" data-v="home">Voltar</button></section>`;
+ const o=[...S.people].sort((a,b)=>a.name.localeCompare(b.name)).map(p=>`<option value="${p.id}" ${p.id===who?'selected':''}>${esc(p.name)}</option>`).join('');
+ return `<section class="card center"><div class="gift" id="gift">🎁</div><h2>Seu amigo secreto</h2><p class="note">Escolha seu nome e digite o código que você recebeu.</p>
+ <select id="rw"><option value="">Escolha seu nome</option>${o}</select><input id="rc" placeholder="Código de acesso" maxlength="8" autocapitalize="characters" autocomplete="off">
+ <button class="btn big" data-a="rev">REVELAR MEU AMIGO SECRETO</button><p class="note" id="rm"></p><button class="btn ghost" data-a="go" data-v="home">Voltar</button></section>`}
+
+function confetti(){if(matchMedia('(prefers-reduced-motion:reduce)').matches)return;const f=$('#fx'),c=['#b3202f','#c9a24b','#ffffff','#2f8f5b'];
+ f.innerHTML=Array.from({length:80},()=>`<i class="cf" style="left:${Math.random()*100}%;background:${c[rnd(4)]};--d:${2+Math.random()*2.5}s;animation-delay:${Math.random()*.6}s"></i>`).join('');setTimeout(()=>f.innerHTML='',5500)}
+
+function tick(){const el=$('#cd');if(!el)return;const d=new Date((S.ev.date||'')+'T00:00')-Date.now();
+ if(isNaN(d)){el.innerHTML='';return}
+ if(d<=0){el.innerHTML='<p class="lead" style="grid-column:1/-1">É hoje! Feliz Natal! 🎄</p>';return}
+ el.innerHTML=[[d/864e5,'dias'],[d/36e5%24,'horas'],[d/6e4%60,'min'],[d/1e3%60,'seg']].map(([x,l])=>`<div><b>${String(Math.floor(x)).padStart(2,'0')}</b><span>${l}</span></div>`).join('')}
+setInterval(tick,1000);
+
+function render(){if(V==='admin'&&!isAdmin)V='home';
+ $('#app').innerHTML=`<header class="top">⭐ ${esc(S.ev.name)}</header>`+({home,admin,reveal})[V]()+(dirty?'<div class="bar"><span>Alterações não publicadas</span><button class="btn gold" data-a="publish">Baixar arquivo atualizado</button></div>':'');tick()}
+
+const A={
+ go(d){V=d.v;render();scrollTo(0,0)},
+ tab(d){T=d.k;edit=null;render()},
+ psave(){const name=$('#pn').value.trim().replace(/\s+/g,' ');
+  if(name.length<3)return toast('Digite o nome completo.');
+  if(S.people.some(p=>p.id!==edit?.id&&p.name.toLowerCase()===name.toLowerCase()))return toast('Já existe alguém com esse nome.');
+  const d={name,phone:$('#pt').value.replace(/[^\d+]/g,''),obs:$('#po').value.trim()};
+  if(edit)Object.assign(edit,d);else S.people.push({id:uid(),...d});
+  edit=null;pending=null;dirty=true;render()},
+ pedit(d){edit=S.people.find(p=>p.id===d.id);render()},
+ pcancel(){edit=null;render()},
+ pdel(d){if(arm!==d.id){arm=d.id;return toast('Toque de novo para excluir.')}
+  S.people=S.people.filter(p=>p.id!==d.id);S.bans=S.bans.filter(b=>!b.includes(d.id));arm='';pending=null;dirty=true;render()},
+ rsave(){const a=$('#ra').value,b=$('#rb').value;
+  if(!a||!b||a===b)return toast('Escolha duas pessoas diferentes.');
+  if(S.bans.some(x=>x.includes(a)&&x.includes(b)))return toast('Essa regra já existe.');
+  S.bans.push([a,b]);pending=null;dirty=true;render()},
+ rdel(d){S.bans.splice(+d.i,1);pending=null;dirty=true;render()},
+ draw(){shuf=true;render();setTimeout(()=>{pending=sortear();shuf=false;render()},1000)},
+ confirm(){confirmar()},
+ cancel(){if(arm!=='c'){arm='c';return toast('Toque de novo para cancelar o sorteio.')}
+  arm='';S.draw=null;codes={};try{localStorage.removeItem('as-codes')}catch{}dirty=true;render()},
+ publish(){save()},
+ esave(){const g=i=>$('#'+i).value.trim(),e={name:g('en'),date:g('ed'),place:g('el'),min:+g('ev')||0,max:+g('ex')||0,deadline:g('eq'),msg:g('em')};
+  if(!e.name)return toast('Dê um nome ao evento.');
+  if(e.min>e.max)return toast('O valor mínimo não pode ser maior que o máximo.');
+  S.ev=e;dirty=true;toast('Configurações salvas. Baixe o arquivo atualizado para publicar.');render()},
+ copy(d){const t=d.t;(navigator.clipboard?navigator.clipboard.writeText(t):Promise.reject()).then(()=>toast('Copiado!'),()=>{const x=document.createElement('textarea');x.value=t;document.body.append(x);x.select();try{document.execCommand('copy');toast('Copiado!')}catch{toast('Não foi possível copiar.')}x.remove()})},
+ async export(){const r=[['Nome','WhatsApp','Observações'],...S.people.map(p=>[p.name,p.phone,p.obs])];
+  const csv='\ufeff'+r.map(x=>x.map(c=>'"'+String(c).replace(/"/g,'""')+'"').join(',')).join('\n');
+  baixar(new Blob([csv],{type:'text/csv'}),'participantes.csv')},
+ async rev(){const id=$('#rw').value,c=$('#rc').value.trim();
+  if(!id||!c)return toast('Escolha seu nome e digite o código.');
+  const g=$('#gift');g.classList.add('shake');let name;
+  try{name=JSON.parse(await unseal(c,S.draw.salt,S.draw.enc[id])).to}
+  catch{g.classList.remove('shake');$('#rm').textContent='Código incorreto para esse nome.';return}
+  await new Promise(r=>setTimeout(r,2200));
+  $('#app .card').innerHTML=`<div class="gift">🎅</div><p class="lead">Você vai presentear</p><h2 class="name">${esc(name)}</h2><p>Valor sugerido: ${money(S.ev.min)} a ${money(S.ev.max)}</p><p class="note">Guarde segredo! 🤫</p><button class="btn ghost" data-a="go" data-v="home">Voltar</button>`;
+  confetti()}
+};
+document.addEventListener('click',e=>{const b=e.target.closest('[data-a]');if(b&&!b.disabled)A[b.dataset.a]?.(b.dataset)});
+
+try{const k=JSON.parse(localStorage.getItem('as-codes')||'null');if(k&&S.draw&&k.salt===S.draw.salt)codes=k}catch{}
+function route(){const h=location.hash;who='';if(h==='#organizador'){isAdmin=true;V='admin'}else if(h.startsWith('#p-')&&S.draw)V='reveal';render()}
+addEventListener('hashchange',route);route();
+</script></body></html>
